@@ -1,0 +1,44 @@
+#search-bar-and-suggestions{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+#search-results-container{
+    display: flex;
+    width: 30vw;
+    min-width: 200px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 20px;
+    overflow: hidden;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: #d9d9d9;
+    gap: 5px; /* Add space between elements */
+
+
+}
+
+#search-titles{
+    margin-top: 15vh;
+    text-align: center;
+}
+
+
+#page-title{
+    color: #37a9ad;
+    margin: 0;
+}
+
+#page-subtitle{
+    color: aliceblue;
+    margin: 0;
+    font-size: 10px;
+}

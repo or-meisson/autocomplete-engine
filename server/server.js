@@ -1,49 +1,29 @@
 const express = require("express");
 const cors = require("cors");
+const fs = require("fs");
+
 const app = express();
 const PORT = 5000;
 app.use(cors());
 
-const MOCK_SUGGESTIONS = [
-  { id: 1, name: "Erik", profile_pic: profilePic, job_title: "Recruiter" },
-  {
-    id: 2,
-    name: "Berkie",
-    profile_pic: profilePic,
-    job_title: "Staff Scientist",
-  },
-  {
-    id: 3,
-    name: "Starla",
-    profile_pic: profilePic,
-    job_title: "Budget/Accounting Analyst III",
-  },
-  {
-    id: 4,
-    name: "Eyde",
-    profile_pic: profilePic,
-    job_title: "Computer Systems Analyst IV",
-  },
-  {
-    id: 5,
-    name: "Ricky",
-    profile_pic: profilePic,
-    job_title: "Systems Administrator IV",
-  },
-  {
-    id: 6,
-    name: "Conny",
-    profile_pic: profilePic,
-    job_title: "Statistician I",
-  },
-];
+const profilePic = "https://t4.ftcdn.net/jpg/02/29/75/83/360_F_229758328_7x8jwCwjtBMmC6rgFzLFhZoEpLobB6L8.jpg"
 
+let suggestions = [];
+
+
+try {
+  const data = fs.readFileSync("./suggestions.json", "utf8");
+  suggestions = JSON.parse(data);  // Parse JSON data
+  // console.log('suggestions');
+} catch (err) {
+  console.error("Error reading the suggestions file:", err);
+}
 app.get("/search", (req, res) => {
   const { query } = req.query;
   const filteredSuggestions = suggestions.filter(
     (s) =>
       s.name.toLowerCase().includes(query.toLowerCase()) ||
-      s.job_title.toLowerCase().includes(query.toLowerCase)
+      s.job_title.toLowerCase().includes(query.toLowerCase())
   );
 
   res.json(filteredSuggestions);

@@ -3,42 +3,9 @@ import Autocomplete from "../components/Autocomplete";
 import "./SearchPage.css";
 import profilePic from "../assets/user.jpg";
 import { debounce } from "../utils"; // Import the debounce function
+import SearchResult from "../components/SearchResult";
 
 const DEBOUNCE_DELAY = 300;
-
-const MOCK_SUGGESTIONS = [
-  { id: 1, name: "Erik", profile_pic: profilePic, job_title: "Recruiter" },
-  {
-    id: 2,
-    name: "Berkie",
-    profile_pic: profilePic,
-    job_title: "Staff Scientist",
-  },
-  {
-    id: 3,
-    name: "Starla",
-    profile_pic: profilePic,
-    job_title: "Budget/Accounting Analyst III",
-  },
-  {
-    id: 4,
-    name: "Eyde",
-    profile_pic: profilePic,
-    job_title: "Computer Systems Analyst IV",
-  },
-  {
-    id: 5,
-    name: "Ricky",
-    profile_pic: profilePic,
-    job_title: "Systems Administrator IV",
-  },
-  {
-    id: 6,
-    name: "Conny",
-    profile_pic: profilePic,
-    job_title: "Statistician I",
-  },
-];
 
 const RESULTS_TITLE = "SEARCH RESULTS";
 const SEARCH_TITLE = "LOOKING FOR AN EMPLOYEE?";
@@ -50,7 +17,7 @@ const SearchPage = () => {
   const fetchSuggestions = async (query) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/suggestions?query=${query}`
+        `http://localhost:5000/search?query=${query}`
       );
       const data = await response.json();
       setSuggestions(data);
@@ -71,7 +38,15 @@ const SearchPage = () => {
 
   const onType = (inputValue) => {
     setIsSearching(true);
+    if (inputValue.length <=1){
+      setSuggestions([])
+    }
+
     debouncedFetchSuggestions(inputValue);
+  };
+
+  const onSearchBarFocus = () => {
+    setIsSearching(true);
   };
 
   return (
@@ -86,12 +61,26 @@ const SearchPage = () => {
       </div>
       <div id="search-bar-and-suggestions">
         <Autocomplete
-          suggestions={MOCK_SUGGESTIONS}
+          suggestions={suggestions}
           onSearch={onSearch}
           onType={onType}
           isSearching={isSearching}
+          onFocus={onSearchBarFocus}
         />
       </div>
+      {!isSearching && suggestions.length > 0 &&
+      <div id="search-results-container">
+            {suggestions.map((suggestion) => (
+                <SearchResult
+                  key={suggestion.id}
+                  pic={suggestion.profile_pic}
+                  title={suggestion.name}
+                  subtitle={suggestion.job_title}
+                />
+              ))}
+
+      </div>
+}
     </div>
   );
 };

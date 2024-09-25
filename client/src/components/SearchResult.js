@@ -1,5 +1,5 @@
 import React from 'react'
-import './AutocompleteResult.css'
+import './SearchResult.css'
 
 const AutocompleteResult = ({ pic, title, subtitle }) => (
     <div className="autocomplete-result">

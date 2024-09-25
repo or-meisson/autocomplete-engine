@@ -1,14 +1,15 @@
 import { useState } from "react";
-import AutocompleteResult from "./AutocompleteResult";
+import SearchResult from "./SearchResult";
 import "./Autocomplete.css";
 import searchIcon from "../assets/search-icon.png";
 
-const Autocomplete = ({ suggestions, onSearch, onType, isSearching }) => {
+const Autocomplete = ({ suggestions, onSearch, onType, onFocus }) => {
   const [input, setInput] = useState("");
   const [isOpen, setIsOpen] = useState(false);
 
   const handleFocus = () => {
     setIsOpen(true);
+    onFocus();
 };
 
 const handleBlur = () => {
@@ -31,16 +32,21 @@ const handleBlur = () => {
             onType(value);
 
         }}  
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            setIsOpen(false); // Close the autocomplete results
 
+            onSearch();  // Trigger search on "Enter" key press
+          }
+        }}
           value={input}
           id="search-input"
         />
-        {isOpen && (
+        {isOpen && input.length > 1 && suggestions.length > 0 && (
           <div id="autocomplete-results-container">
-            <div id="autocomplete-results-list">
-            {input.length > 1 && suggestions.length ? (
+            <div id="autocomplete-results-list">{
               suggestions.map((suggestion) => (
-                <AutocompleteResult
+                <SearchResult
                   key={suggestion.id}
                   pic={suggestion.profile_pic}
                   title={suggestion.name}
@@ -48,12 +54,15 @@ const handleBlur = () => {
                 />
               ))
 
-        ) : null}
+            } 
                     </div>
                     </div>
         )}
       </div>
-      <button id="search-button" onClick={onSearch}>
+      <button id="search-button" onClick={() => {onSearch()
+      // setInput('')
+
+      }}>
         <img
           src={searchIcon}
           style={{ marginTop: 2, width: "12px", height: "12px" }}
