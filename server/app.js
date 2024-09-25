@@ -5,7 +5,6 @@ const { loadSuggestions } = require("./utils");
 const app = express();
 app.use(cors());
 
-
 app.get("/search", (req, res) => {
   const { query } = req.query;
   const filteredSuggestions = loadSuggestions().filter(
@@ -17,9 +16,6 @@ app.get("/search", (req, res) => {
   res.json(filteredSuggestions);
 });
 
-
-
 module.exports = {
-    app
-}
-
+  app,
+};
