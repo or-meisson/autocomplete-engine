@@ -1,0 +1,24 @@
+#search-bar-and-suggestions{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+#search-titles{
+    margin-top: 15vh;
+    text-align: center;
+}
+
+
+#page-title{
+    color: #37a9ad;
+    margin: 0;
+}
+
+#page-subtitle{
+    color: aliceblue;
+    margin: 0;
+    font-size: 10px;
+}
