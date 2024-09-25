@@ -3,8 +3,18 @@ import AutocompleteResult from "./AutocompleteResult";
 import "./Autocomplete.css";
 import searchIcon from "../assets/search-icon.png";
 
-const Autocomplete = ({ suggestions, onSearch, onType }) => {
+const Autocomplete = ({ suggestions, onSearch, onType, isSearching }) => {
   const [input, setInput] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleFocus = () => {
+    setIsOpen(true);
+};
+
+const handleBlur = () => {
+    setIsOpen(false);
+};
+
 
 
   return (
@@ -12,27 +22,36 @@ const Autocomplete = ({ suggestions, onSearch, onType }) => {
       <div id="search-bar">
         <input
           type="text"
+          onFocus={handleFocus}
+          onBlur={handleBlur}
           onChange={(e) => {
-            onType()
-            setInput(e.target.value)
-        }}
+            const value = e.target.value;
+            setInput(value)
+            if (value.length > 1) setIsOpen(true);
+            onType(value);
+
+        }}  
+
           value={input}
           id="search-input"
         />
-        {input.length > 1 && suggestions.length ? (
+        {isOpen && (
           <div id="autocomplete-results-container">
             <div id="autocomplete-results-list">
-              {suggestions.map((suggestion) => (
+            {input.length > 1 && suggestions.length ? (
+              suggestions.map((suggestion) => (
                 <AutocompleteResult
                   key={suggestion.id}
                   pic={suggestion.profile_pic}
                   title={suggestion.name}
                   subtitle={suggestion.job_title}
                 />
-              ))}
-            </div>
-          </div>
+              ))
+
         ) : null}
+                    </div>
+                    </div>
+        )}
       </div>
       <button id="search-button" onClick={onSearch}>
         <img

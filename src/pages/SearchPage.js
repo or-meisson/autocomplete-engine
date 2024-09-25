@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import Autocomplete from "../components/Autocomplete";
 import "./SearchPage.css";
 import profilePic from "../assets/user.jpg";
+import { debounce } from "../utils"; // Import the debounce function
+
+const DEBOUNCE_DELAY = 300;
+
 const MOCK_SUGGESTIONS = [
   { id: 1, name: "Erik", profile_pic: profilePic, job_title: "Recruiter" },
   {
@@ -41,13 +45,33 @@ const SEARCH_TITLE = "LOOKING FOR AN EMPLOYEE?";
 
 const SearchPage = () => {
   const [isSearching, setIsSearching] = useState(true);
+  const [suggestions, setSuggestions] = useState([]);
 
+  const fetchSuggestions = async (query) => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/suggestions?query=${query}`
+      );
+      const data = await response.json();
+      setSuggestions(data);
+    } catch (error) {
+      console.error("Error fetching suggestions:", error);
+    }
+  };
+
+  const debouncedFetchSuggestions = debounce((inputValue) => {
+    if (inputValue.length > 1) {
+      fetchSuggestions(inputValue); // Only fetch suggestions if the input has more than 1 character
+    }
+  }, DEBOUNCE_DELAY);
+  
   const onSearch = () => {
     setIsSearching(false);
   };
 
-  const onType = () => {
+  const onType = (inputValue) => {
     setIsSearching(true);
+    debouncedFetchSuggestions(inputValue);
   };
 
   return (
@@ -65,6 +89,7 @@ const SearchPage = () => {
           suggestions={MOCK_SUGGESTIONS}
           onSearch={onSearch}
           onType={onType}
+          isSearching={isSearching}
         />
       </div>
     </div>
