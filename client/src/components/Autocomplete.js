@@ -31,9 +31,9 @@ const Autocomplete = ({ suggestions, onSearch, onType, onFocus }) => {
           }}
           onKeyDown={(e) => {
             if (e.key === "Enter") {
-              setIsOpen(false); // Close the autocomplete results
+              setIsOpen(false);
 
-              onSearch(); // Trigger search on "Enter" key press
+              onSearch();
             }
           }}
           value={input}
@@ -45,7 +45,7 @@ const Autocomplete = ({ suggestions, onSearch, onType, onFocus }) => {
             <div id="autocomplete-results-list">
               {suggestions.map((suggestion, i) => (
                 <>
-                {i!==0 && <div className="autocomplete-separator"> </div>}
+                  {i !== 0 && <div className="autocomplete-separator"> </div>}
                   <SearchResult
                     key={suggestion.id}
                     pic={suggestion.profile_pic}
@@ -62,13 +62,9 @@ const Autocomplete = ({ suggestions, onSearch, onType, onFocus }) => {
         id="search-button"
         onClick={() => {
           onSearch();
-          // setInput('')
         }}
       >
-        <img
-          src={searchIcon}
-          id="search-icon"
-        />
+        <img src={searchIcon} id="search-icon" alt="search" />
       </button>
     </div>
   );

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Autocomplete from "../components/Autocomplete";
 import "./SearchPage.css";
-import { debounce } from "../utils"; // Import the debounce function
+import { debounce } from "../utils";
 import SearchResult from "../components/SearchResult";
 
 const DEBOUNCE_DELAY = 300;
@@ -27,18 +27,18 @@ const SearchPage = () => {
 
   const debouncedFetchSuggestions = debounce((inputValue) => {
     if (inputValue.length > 1) {
-      fetchSuggestions(inputValue); // Only fetch suggestions if the input has more than 1 character
+      fetchSuggestions(inputValue);
     }
   }, DEBOUNCE_DELAY);
-  
+
   const onSearch = () => {
     setIsSearching(false);
   };
 
   const onType = (inputValue) => {
     setIsSearching(true);
-    if (inputValue.length <=1){
-      setSuggestions([])
+    if (inputValue.length <= 1) {
+      setSuggestions([]);
     }
 
     debouncedFetchSuggestions(inputValue);
@@ -67,19 +67,18 @@ const SearchPage = () => {
           onFocus={onSearchBarFocus}
         />
       </div>
-      {!isSearching && suggestions.length > 0 &&
-      <div id="search-results-container">
-            {suggestions.map((suggestion) => (
-                <SearchResult
-                  key={suggestion.id}
-                  pic={suggestion.profile_pic}
-                  title={suggestion.name}
-                  subtitle={suggestion.job_title}
-                />
-              ))}
-
-      </div>
-}
+      {!isSearching && suggestions.length > 0 && (
+        <div id="search-results-container">
+          {suggestions.map((suggestion) => (
+            <SearchResult
+              key={suggestion.id}
+              pic={suggestion.profile_pic}
+              title={suggestion.name}
+              subtitle={suggestion.job_title}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 };
