@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Autocomplete from "../components/Autocomplete";
 import "./SearchPage.css";
-import profilePic from "../assets/user.jpg";
 import { debounce } from "../utils"; // Import the debounce function
 import SearchResult from "../components/SearchResult";
 

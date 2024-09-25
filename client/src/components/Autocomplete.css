@@ -1,7 +1,6 @@
 #autocomplete-container {
     display: flex;
     align-items: start; /* Center horizontally */
-    /* width: 300px; */
 }
 
 
@@ -13,6 +12,12 @@
     overflow: hidden; /* Hide the overflow */
 }
 
+.autocomplete-separator{
+    width: 100%;
+    height: 1x;
+    min-height: 1px;
+    background-color: white;
+}
 
 #autocomplete-results-list{
     display: flex;
@@ -21,14 +26,12 @@
     justify-content:start; /* Center vertically */
     width: 100%;
     overflow-y: auto;
-    max-height: 190px; /* Limit height of results */
+    max-height: 250px; /* Limit height of results */
     gap: 5px; /* Add space between elements */
-    /* padding-top: 20px; */
     background-color: #d9d9d9;
-
     border: 1px solid #ccc; /* Add border around results */
     border-radius: 0px 0px 20px 20px; /* Round the corners */
-    padding-top: 10px;
+    padding-top: 20px;
     padding-bottom: 10px;
     z-index: 1;
 
@@ -56,34 +59,40 @@
 #search-bar{
     display: flex;
     margin-left: 30px;
-
-    /* width: 100%; */
-    /* position: relative; */
     flex-direction: column;
-    
-
 }
 
 #search-button{
     border-radius: 100%;
-    width: 25px;
-    height: 25px;
+    width:35px;
+    height:35px;
     border: 0;
     background-color: #37a9ad;
     margin-left: 7px;
-    margin-top: -4px;
-    /* margin-bottom: 10px; */
     cursor: pointer;
 }
 
 #search-input{
-    /* width: 100%; */
-    width: 300px;
+    width: 600px;
     border: 1px solid #ccc; 
-    border-radius: 10px; 
-    padding: 0 5px;
+    border-radius: 15px; 
+    padding: 8px 10px;
     background-color: white;
     z-index: 10;
     position: relative;
 }
 
+#search-icon{
+    width: 20px;
+    height: 20px;
+}
+
+
+
+
+@media (max-width:700px) {
+    #search-input{
+        width: 70vw;
+        min-width: 100px;
+    }
+}

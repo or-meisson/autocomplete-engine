@@ -10,13 +10,11 @@ const Autocomplete = ({ suggestions, onSearch, onType, onFocus }) => {
   const handleFocus = () => {
     setIsOpen(true);
     onFocus();
-};
+  };
 
-const handleBlur = () => {
+  const handleBlur = () => {
     setIsOpen(false);
-};
-
-
+  };
 
   return (
     <div id="autocomplete-container">
@@ -27,45 +25,49 @@ const handleBlur = () => {
           onBlur={handleBlur}
           onChange={(e) => {
             const value = e.target.value;
-            setInput(value)
+            setInput(value);
             if (value.length > 1) setIsOpen(true);
             onType(value);
+          }}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              setIsOpen(false); // Close the autocomplete results
 
-        }}  
-        onKeyDown={(e) => {
-          if (e.key === "Enter") {
-            setIsOpen(false); // Close the autocomplete results
-
-            onSearch();  // Trigger search on "Enter" key press
-          }
-        }}
+              onSearch(); // Trigger search on "Enter" key press
+            }
+          }}
           value={input}
           id="search-input"
+          placeholder="Search..."
         />
         {isOpen && input.length > 1 && suggestions.length > 0 && (
           <div id="autocomplete-results-container">
-            <div id="autocomplete-results-list">{
-              suggestions.map((suggestion) => (
-                <SearchResult
-                  key={suggestion.id}
-                  pic={suggestion.profile_pic}
-                  title={suggestion.name}
-                  subtitle={suggestion.job_title}
-                />
-              ))
-
-            } 
-                    </div>
-                    </div>
+            <div id="autocomplete-results-list">
+              {suggestions.map((suggestion, i) => (
+                <>
+                {i!==0 && <div className="autocomplete-separator"> </div>}
+                  <SearchResult
+                    key={suggestion.id}
+                    pic={suggestion.profile_pic}
+                    title={suggestion.name}
+                    subtitle={suggestion.job_title}
+                  />
+                </>
+              ))}
+            </div>
+          </div>
         )}
       </div>
-      <button id="search-button" onClick={() => {onSearch()
-      // setInput('')
-
-      }}>
+      <button
+        id="search-button"
+        onClick={() => {
+          onSearch();
+          // setInput('')
+        }}
+      >
         <img
           src={searchIcon}
-          style={{ marginTop: 2, width: "12px", height: "12px" }}
+          id="search-icon"
         />
       </button>
     </div>

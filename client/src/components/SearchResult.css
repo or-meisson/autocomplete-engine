@@ -2,7 +2,6 @@
 display: flex;
 align-items: center;
 background-color: #d9d9d9;
-/* border: 2px solid #ccc; */
 width: 100%;
 }
 
@@ -12,23 +11,22 @@ width: 100%;
 }
 
 .pic{
-    width: 35px;
-    height: 35px;
+    width: 45px;
+    height: 45px;
     margin-right: 10px;
-    border-radius: 50%;
-
-
+    border-radius: 100%;
+    margin-left: 8px;
 }
 
 .title{
-    font-size: 10px;
+    font-size: 15px;
     font-weight: bold;
     color: #731f39;
     text-align: left; /* Align text to the left */
 }
 
 .subtitle{
-    font-size: 8px;
+    font-size: 12px;
     color: black;
     text-align: left; /* Align text to the left */
     font-weight: bold;
@@ -38,4 +36,5 @@ width: 100%;
 .result-description{
     display: flex;
     flex-direction: column;
+    gap:5px;
 }
