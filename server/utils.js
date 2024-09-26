@@ -1,5 +1,5 @@
 const fs = require("fs");
-
+const path = require("path");
 let suggestions = [];
 const profilePic =
   "https://t4.ftcdn.net/jpg/02/29/75/83/360_F_229758328_7x8jwCwjtBMmC6rgFzLFhZoEpLobB6L8.jpg";
@@ -9,7 +9,7 @@ const loadSuggestions = () => {
     return suggestions;
   }
   try {
-    const data = fs.readFileSync("./suggestions.json", "utf8");
+    const data = fs.readFileSync(path.join(__dirname, 'suggestions.json') , "utf8");
     suggestions = JSON.parse(data).map((suggestion) => ({
       ...suggestion,
       profile_pic: profilePic,

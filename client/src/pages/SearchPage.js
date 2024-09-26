@@ -16,7 +16,7 @@ const SearchPage = () => {
   const fetchSuggestions = async (query) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/search?query=${query}`
+        `https://autocomplete-engine-88e9dsi13-or-meissons-projects.vercel.app/search?query=${query}`
       );
       const data = await response.json();
       setSuggestions(data);
