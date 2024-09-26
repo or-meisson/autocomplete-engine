@@ -1,5 +1,8 @@
 # Deloitte Project
 
+
+![alt text](image-1.png)
+
 ![alt text](image.png)
 
 ## Installation
